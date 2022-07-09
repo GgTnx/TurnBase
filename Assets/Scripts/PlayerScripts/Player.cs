@@ -25,6 +25,7 @@ namespace PlayerScripts
         
         private Weapon _weapon;
         public int _movePoint = 5;
+        public bool _canShoot;
         public State _currentState = State.Idle;
        
 
@@ -72,6 +73,7 @@ namespace PlayerScripts
         private void EndTurne()
         {
             _movePoint = 5;
+            _canShoot = true;
         }
 
 

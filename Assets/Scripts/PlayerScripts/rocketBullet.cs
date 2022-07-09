@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace PlayerScripts
 {
@@ -9,6 +10,8 @@ namespace PlayerScripts
         [SerializeField] private float _lifeTime;
         [SerializeField] private int _damage;
         [SerializeField] private LayerMask _layerMask;
+        [SerializeField] private Tilemap _rocks;
+        [SerializeField] private Tile _ashes;
         private CombatController _combatController;
         private Vector2 _target;
 
@@ -24,7 +27,7 @@ namespace PlayerScripts
             _target = _combatController._target;
         
    
-            StartCoroutine(KillBulletByLifeTime());
+                //StartCoroutine(KillBulletByLifeTime());
         
 
         }
@@ -37,12 +40,23 @@ namespace PlayerScripts
             Kill();
         }
 
-        //  private void OnCollisionEnter2D(Collision2D col)
-        // {
-        //     
-        //     Destroy(col.gameObject);
-        //     Destroy(gameObject);
-        // }
+         private void OnCollisionEnter2D(Collision2D col)
+        {
+            if (col.gameObject.CompareTag("TestTag"))
+            {
+                print(col.contacts[0].point);
+
+                var point = _rocks.WorldToCell(col.contacts[0].point);
+                _rocks.SetTile(point,_ashes);
+                
+                print(point);
+
+
+                //_rocks.SetTile(point,_ashes);
+            }
+            // Destroy(col.gameObject);
+            // Destroy(gameObject);
+        }
       
 
         private void Move()

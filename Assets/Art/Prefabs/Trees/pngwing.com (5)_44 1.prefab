@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 767951318950676170}
   - component: {fileID: 8070978379035464219}
   m_Layer: 0
-  m_Name: pngwing
+  m_Name: pngwing.com (5)_44 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 8
   m_Sprite: {fileID: -3072734558233301724, guid: 4d2676b14a3eea747bfdd4ae12aaad84, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

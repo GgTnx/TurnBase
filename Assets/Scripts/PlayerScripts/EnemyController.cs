@@ -15,26 +15,30 @@ namespace PlayerScripts
         [SerializeField] private PathFinder _pathFinder;
         [SerializeField] private LayerMask _layerMask;
         [SerializeField] private GameObject _bulletPrefab;
+        public Vector3 _currentPositionCamera;
         public List<Vector2> path1 = new List<Vector2>(); //potom zakrit
         [SerializeField] private Camera _camera;
         private float speed = 3f;
-        public List<Enemy> _enemies; // zakrit
-        public List<Player> _players; // zakrit
+        public List<Enemy> _enemies; 
+        public List<Player> _players; 
         public Player _target;
 
         private void OnEnable()
         {
-            _uiController.ProverkaPress += SetActive;
+            _uiController.EndTurnePress  += SetActive;
         }
 
         private void SetActive()
         {
+            CameraPosition();
             _cameraMove.gameObject.SetActive(false);
             _combatController.gameObject.SetActive(false);
             _moveController.gameObject.SetActive(false);
             _enemies = FindEnemys();
             _players = FindPlayers();
             StartCoroutine(StartMove(_enemies));
+            _cameraMove.gameObject.SetActive(true);
+            
         }
 
         private List<Enemy> FindEnemys()
@@ -60,6 +64,18 @@ namespace PlayerScripts
 
             return playerList;
         }
+
+        private void CameraPosition()
+        {
+            _currentPositionCamera = _camera.transform.position;
+
+        }
+
+        private void ReturnCamera()
+        {
+            _camera.transform.position = _currentPositionCamera;
+        }
+        
         
 
        
@@ -69,25 +85,7 @@ namespace PlayerScripts
             
             Instantiate(_bulletPrefab, enemy.transform.position, Quaternion.identity); //dobavit' to4ku plevka
         }
-
-        private void CalculateMoveGrid(Enemy enemy)
-        {
-            Vector2Int _enemy = Vector2Int.FloorToInt(enemy.transform.position);
-            for (int x = _enemy.x - enemy._movePoint; x <= _enemy.x + enemy._movePoint; x++)
-            {
-                for (int y = _enemy.y - enemy._movePoint; y <= _enemy.y + enemy._movePoint; y++)
-                {
-                    var walkble = !Physics2D.OverlapCircle(new Vector2(x + 0.5f, y + 0.5f), 0.05f, _layerMask);
-                    if (walkble)
-                    {
-                        if (_pathFinder.GetPath(_enemy, new Vector2(x, y)).Count <= enemy._movePoint)
-                        {
-                            path1.Add(new Vector2(x + 0.5f, y + 0.5f));
-                        }
-                    }
-                }
-            }
-        }
+        
 
         private IEnumerator StartMove(List<Enemy> enemies)
         {
@@ -103,23 +101,26 @@ namespace PlayerScripts
                     enem._Renderer.flipX = false;
                 }
                 var finish =Vector2Int.FloorToInt(_target.transform.position);
-                var start =Vector2Int.FloorToInt(enem.transform.position);
+                var position = enem.transform.position;
+                var start =Vector2Int.FloorToInt(position);
                 var path =_pathFinder.GetPath(start, finish);
-                _camera.transform.position = enem.transform.position + new Vector3(0,0,-1);
-                yield return StartCoroutine(Move(enem, path));
-               // EnemyAttack(enem);
-                path1.Clear();
+                _camera.transform.position = position + new Vector3(0,0,-1);
+                StartCoroutine(Move(enem, path));
+                yield return (StartCoroutine(Move(enem, path)));
+
             }
+            ReturnCamera();
         }
         private IEnumerator Move(Enemy start,List<Vector2> path)
         {
-            path.RemoveAt(0);
+
+           
             Vector2 pos = start.transform.position;
             for (int i = path.Count-1; i >=path.Count-5; i--) //tut meniau
             {
                 if(i<0)
                     break;
-                if (pos == path[0])
+                if (pos == path[1])
                     break;
                 while (start.transform.position != new Vector3(path[i].x, path[i].y, 0f))
                 {
@@ -128,6 +129,7 @@ namespace PlayerScripts
                     yield return null;
                 }
             }
+
 
         }
 

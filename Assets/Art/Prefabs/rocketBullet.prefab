@@ -103,6 +103,8 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 0
+  _rocks: {fileID: 6747206090991948730, guid: 3e0ce1c906e969d4fa110a2d2227caa2, type: 3}
+  _ashes: {fileID: 0}
 --- !u!61 &2051014594321893884
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -24,6 +24,7 @@ namespace PlayerScripts
         private UIController _uiController;
         private List<Vector2> path1 = new List<Vector2>(); 
         private float speed = 2f;
+        public bool _isMoving;
         public event Action<Player> OnSelected;
         public event Action OffSelected;
         public event Action MovePointChanged;
@@ -44,6 +45,9 @@ namespace PlayerScripts
 
         private void Update()
         {
+           
+            if(_isMoving)
+                return;
             if (Input.GetMouseButtonDown(0)&&_currentState == State.Select)
             {
                 SelectPlayer();
@@ -59,7 +63,7 @@ namespace PlayerScripts
 
         private void SelectPlayer()
         {
-        
+
             Vector3 mouseInput = _camera.ScreenToWorldPoint(Input.mousePosition);
             mouseInput.z = 0f;
             Collider2D colider = Physics2D.OverlapPoint(mouseInput, _selectedMask);
@@ -108,6 +112,7 @@ namespace PlayerScripts
 
         private IEnumerator Move()
         {
+            _isMoving = true;
             var player = _selectedGameObject.GetComponent<Player>();
             for (int i = path1.Count-1; i >=0; i--)
             {
@@ -123,8 +128,9 @@ namespace PlayerScripts
 
             }
             MovePointChanged?.Invoke();
-       
-    
+            _isMoving = false;
+
+
         }
         private void EndTurne()
         {

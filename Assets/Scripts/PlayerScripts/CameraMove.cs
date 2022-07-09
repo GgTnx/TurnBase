@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace PlayerScripts
@@ -5,10 +6,18 @@ namespace PlayerScripts
    public class CameraMove : MonoBehaviour
    {
       [SerializeField] private Camera _camera;
+      private UIController _uiController;
+      private Vector2 _currentPositionCamera;
       public float _up;
       public float _down;
       public float _left;
       public float _right ;
+
+      private void Start()
+      {
+         _uiController = FindObjectOfType<UIController>();
+         _uiController.EndTurnePress += EndTurne;
+      }
 
 
       private void Update()
@@ -21,6 +30,11 @@ namespace PlayerScripts
          }
       
          _camera.transform.position = new Vector3(Mathf.Clamp(_camera.transform.position.x, _left, _right),Mathf.Clamp(_camera.transform.position.y, _down, _up),_camera.transform.position.z);
+      }
+
+      private void EndTurne()
+      {
+         
       }
    }
 }

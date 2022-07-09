@@ -577,7 +577,8 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 0
-  _hp: 5
+  _hp: 10
   _currentHp: 0
   _movePoint: 5
+  _canShoot: 1
   _currentState: 1

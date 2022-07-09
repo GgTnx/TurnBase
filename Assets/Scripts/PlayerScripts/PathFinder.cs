@@ -12,17 +12,7 @@ public class PathFinder : MonoBehaviour
     [SerializeField] private Transform _target;
     [SerializeField] private LayerMask _layerMask;
 
-    private void Start()
-    {
-       
-    }
-
-    private void Update()
-    {
-        
-       
-    }
-
+  
    
     public List<Vector2> GetPath(Vector2 start, Vector2 targetPosition) 
     {
@@ -62,10 +52,10 @@ public class PathFinder : MonoBehaviour
         return _pathToTarget;
     }
 
-    public List<Vector2> MovePath(Vector2 startPosition, Vector2 endPosition)
-    {
-        return GetPath(startPosition, endPosition);
-    }
+    // public List<Vector2> MovePath(Vector2 startPosition, Vector2 endPosition)
+    // {
+    //     return GetPath(startPosition, endPosition);
+    // }
 
     private List<Vector2> CalculatePath(Node node)
     {
@@ -76,7 +66,6 @@ public class PathFinder : MonoBehaviour
             path.Add(new Vector2(currentNode.Position.x+0.5f,currentNode.Position.y+0.5f));
             currentNode = currentNode.PreviosNode;
         }
-        
 
         return path;
     }

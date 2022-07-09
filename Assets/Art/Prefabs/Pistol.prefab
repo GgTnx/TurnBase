@@ -132,9 +132,10 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 0
-  _hp: 0
+  _hp: 10
   _currentHp: 0
   _movePoint: 5
+  _canShoot: 1
   _currentState: 1
 --- !u!61 &9067100277695609947
 BoxCollider2D:
@@ -445,7 +446,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 6
   m_TargetDisplay: 0
 --- !u!114 &96808968555511487
 MonoBehaviour:

@@ -21,7 +21,7 @@ namespace PlayerScripts
         private void Start()
         {
             _enemyController = FindObjectOfType<EnemyController>();
-            _target = _enemyController._target.transform.position;
+           // _target = _enemyController._target.transform.position;
         
    
             StartCoroutine(KillBulletByLifeTime());

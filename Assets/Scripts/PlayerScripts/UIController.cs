@@ -16,19 +16,19 @@ namespace PlayerScripts
 
         private void EndTurn()
         {
-            print("konec hoda");
+
             EndTurnePress?.Invoke();
         }
 
         private void Combat()
         {
-            print("Se4a na4alas");
+
             CombatPress?.Invoke();
         }
 
         private void Proverka()
         {
-            print("proverka");
+
             ProverkaPress?.Invoke();
             
         }

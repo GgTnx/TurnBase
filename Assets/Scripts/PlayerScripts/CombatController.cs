@@ -9,19 +9,19 @@ namespace PlayerScripts
         [SerializeField] private Camera _camera;
         [SerializeField] private GameObject _bulletPrefab;
         [SerializeField] private MoveController _moveController;
+        [SerializeField] private Cursore1 _cursore1;
         public Vector2 _spawnPoint;
         public Vector2 _target;
+        private Player _player;
+        
 
-        private void Awake()
-        {
-           
-        }
 
         private void OnEnable()
         {
             if (_moveController._selectedGameObject != null)
             {
                 _spawnPoint = _moveController._selectedGameObject.gameObject.transform.Find("BulletPoint").position;
+                _player = _moveController._selectedGameObject.gameObject.GetComponent<Player>();
             }
             else
             {
@@ -41,8 +41,14 @@ namespace PlayerScripts
             if (Input.GetMouseButtonDown(0))
             {
                 _target = _camera.ScreenToWorldPoint(Input.mousePosition);
+                if (_player!=null&&_player._canShoot)
+                {
+                    CreateBullet(); /// вот тут через свитч вид стрельбы
+                    _player._canShoot = false;
+                    _cursore1.ChangeCursore(0);
+                }
                 
-                CreateBullet();
+   
             }
             if (Input.GetMouseButtonDown(1))
             {

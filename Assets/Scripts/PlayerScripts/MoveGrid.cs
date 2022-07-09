@@ -53,6 +53,7 @@ namespace PlayerScripts
 
         private void CalculateMoveGrid()
         {
+
             Vector2Int player = Vector2Int.FloorToInt(_playerPosition.transform.position);
             for (int x = player.x - _playerPosition._movePoint; x <= player.x + _playerPosition._movePoint; x++)
             {
@@ -68,6 +69,7 @@ namespace PlayerScripts
                     }
                 }
             }
+
         }
 
         private void ClearHighLight()
